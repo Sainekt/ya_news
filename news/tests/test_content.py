@@ -11,8 +11,8 @@ from news.forms import CommentForm
 
 User = get_user_model()
 
+
 class TestContent(TestCase):
-    
     HOME_URL = reverse('news:home')
 
     @classmethod
