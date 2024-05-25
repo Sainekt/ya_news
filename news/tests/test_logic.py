@@ -50,6 +50,7 @@ class TestCommentCreation(TestCase):
         comment_cunt = Comment.objects.count()
         self.assertEqual(comment_cunt, 0)
 
+
 class TestCommentEditDelite(TestCase):
 
     COMMENT_TEXT = 'text comment'
@@ -86,7 +87,7 @@ class TestCommentEditDelite(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
         comment_count = Comment.objects.count()
         self.assertEqual(comment_count, 1)
-    
+
     def test_author_can_edit_comment(self):
         # Выполняем запрос на редактирование от имени автора комментария.
         response = self.author_client.post(self.edit_url, data=self.form_data)
