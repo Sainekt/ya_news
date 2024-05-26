@@ -1,8 +1,10 @@
 import pytest
+from datetime import datetime, timedelta
 
 from django.test.client import Client
 
 from news.models import News, Comment
+from django.conf import settings
 
 
 @pytest.fixture
@@ -56,3 +58,31 @@ def news_id_for_args(news):
 @pytest.fixture
 def id_comment_for_args(comment):
     return (comment.id,)
+
+
+@pytest.fixture
+def create_news_list(db):
+    """Create a list of news more than the maximum available on one page"""
+    today = datetime.today()
+    News.objects.bulk_create(
+        News(
+            title=f'news{index}',
+            text='Some text',
+            date=today - timedelta(days=index))
+        for index in range(settings.NEWS_COUNT_ON_HOME_PAGE + 1)
+    )
+    return News.objects
+
+
+@pytest.fixture
+def create_some_comments(news, author):
+    today = datetime.today()
+    Comment.objects.bulk_create(
+        Comment(
+            text=f'Some text {index}',
+            news=news,
+            author=author,
+            created=today + timedelta(days=index))
+        for index in range(10)
+    )
+    return Comment.objects
