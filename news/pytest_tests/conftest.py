@@ -1,10 +1,10 @@
-import pytest
 from datetime import datetime, timedelta
 
+import pytest
+from django.conf import settings
 from django.test.client import Client
 
-from news.models import News, Comment
-from django.conf import settings
+from news.models import Comment, News
 
 
 @pytest.fixture
@@ -86,3 +86,8 @@ def create_some_comments(news, author):
         for index in range(10)
     )
     return Comment.objects
+
+
+@pytest.fixture
+def form_comment_data():
+    return {'text': 'Some Text'}

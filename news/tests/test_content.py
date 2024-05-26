@@ -1,13 +1,13 @@
 from datetime import datetime, timedelta
 
-from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from news.models import News, Comment
 from news.forms import CommentForm
+from news.models import Comment, News
 
 User = get_user_model()
 
